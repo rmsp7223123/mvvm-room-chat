@@ -53,7 +53,7 @@ class JoinActivity : AppCompatActivity() {
             Toast.makeText(this, "추가실패", Toast.LENGTH_LONG).show();
         }
     }
-    
+
     private fun inputCheck(user_id:String, user_pw:String, user_nickname: String):Boolean{
         return !(TextUtils.isEmpty(user_id)&& TextUtils.isEmpty(user_pw)&& TextUtils.isEmpty(user_nickname));
     }
