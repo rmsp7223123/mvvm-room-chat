@@ -7,9 +7,9 @@
     tools:context="com.example.test_todo.HomeActivity"
     android:orientation="vertical">
 
-    <Button
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="asfsdf"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24sp"
+    android:id="@+id/container_user">
+
+
+    <TextView
+        android:textSize="20dp"
+        android:id="@+id/firstName_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="아이디"
+        app:layout_constraintBottom_toBottomOf=""
+        app:layout_constraintStart_toEndOf=""
+        app:layout_constraintTop_toTopOf=""
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:textSize="20dp"
+        android:id="@+id/lastName_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="닉네임"
+        app:layout_constraintBottom_toBottomOf=""
+        app:layout_constraintStart_toEndOf="@+id/firstName_txt"
+        app:layout_constraintTop_toTopOf=""
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
