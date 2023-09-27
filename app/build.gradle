@@ -5,11 +5,11 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 android {
-    namespace 'com.example.kotlin_todo2'
+    namespace 'com.example.test_todo'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.kotlin_todo2"
+        applicationId "com.example.test_todo"
         minSdk 24
         targetSdk 33
         versionCode 1

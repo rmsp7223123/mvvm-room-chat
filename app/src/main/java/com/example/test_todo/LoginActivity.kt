@@ -2,8 +2,8 @@ package com.example.test_todo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.kotlin_todo2.R
-import com.example.kotlin_todo2.databinding.ActivityLoginBinding
+import com.example.test_todo.databinding.ActivityLoginBinding
+
 
 class LoginActivity : AppCompatActivity() {
 

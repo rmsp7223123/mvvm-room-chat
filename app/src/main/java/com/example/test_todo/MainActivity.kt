@@ -1,9 +1,9 @@
 package com.example.test_todo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.kotlin_todo2.R
-import com.example.kotlin_todo2.databinding.ActivityMainBinding
+import com.example.test_todo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,5 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(layoutInflater);
         setContentView(binding.root);
+
+        binding.btnJoin.setOnClickListener { startActivity(Intent(this, JoinActivity::class.java)); };
+        binding.btnLogin.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java)); };
     };
 }

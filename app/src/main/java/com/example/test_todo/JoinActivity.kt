@@ -2,8 +2,8 @@ package com.example.test_todo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.kotlin_todo2.R
-import com.example.kotlin_todo2.databinding.ActivityJoinBinding
+import com.example.test_todo.databinding.ActivityJoinBinding
+
 
 class JoinActivity : AppCompatActivity() {
 
@@ -13,5 +13,9 @@ class JoinActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState);
         binding = ActivityJoinBinding.inflate(layoutInflater);
         setContentView(binding.root);
+
+        binding.btnCreate.setOnClickListener {
+
+        };
     }
 }
