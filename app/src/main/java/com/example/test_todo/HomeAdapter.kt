@@ -3,6 +3,7 @@ package com.example.test_todo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_todo.databinding.ItemRecvHomeBinding
 import com.example.test_todo.model.User
@@ -26,4 +27,14 @@ class HomeAdapter(private val userList: List<User>) : RecyclerView.Adapter<HomeA
         holder.binding.tvId.text = user.user_id;
         holder.binding.tvName.text = user.user_nickname;
     };
+
+    private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem.user_id == newItem.user_id;
+        }
+
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem == newItem;
+        }
+    }
 };
