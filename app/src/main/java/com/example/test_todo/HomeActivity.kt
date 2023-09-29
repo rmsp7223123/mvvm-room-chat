@@ -19,12 +19,13 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater);
         setContentView(binding.root);
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java);
+        adapter = HomeAdapter();
+
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
         userViewModel.readAllData.observe(this, Observer { userList ->
-           // adapter.submitList(userList);
+           adapter.submitList(userList);
         })
 
-       // var adapter = HomeAdapter();
         binding.recv.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity);
             this.adapter = adapter;
