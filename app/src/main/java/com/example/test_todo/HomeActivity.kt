@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.test_todo.common.CommonVar
 import com.example.test_todo.databinding.ActivityHomeBinding
 import com.example.test_todo.model.User
 import com.example.test_todo.viewmodel.UserViewModel
@@ -18,6 +19,9 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(layoutInflater);
         setContentView(binding.root);
+
+        binding.tvId.text = CommonVar.user_id;
+        binding.tvName.text = CommonVar.user_nickname;
 
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
