@@ -20,22 +20,25 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater);
         setContentView(binding.root);
 
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
+        adapter = HomeAdapter(ArrayList());
+
         binding.tvId.text = CommonVar.user_id;
         binding.tvName.text = CommonVar.user_nickname;
-
-
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
-        userViewModel.readAllData.observe(this, Observer { userList ->
-            adapter = HomeAdapter(userList);
-            binding.recv.apply {
-                layoutManager = LinearLayoutManager(this@HomeActivity);
-                this.adapter = adapter;
-            };
-        });
 
         binding.recv.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity);
             this.adapter = adapter;
         };
+
+        userViewModel.readAllData.observe(this, Observer { userList ->
+            adapter.userList = userList;
+            adapter.notifyDataSetChanged();
+        });
+    };
+
+    override fun onDestroy() {
+        super.onDestroy();
+        userViewModel.readAllData.removeObservers(this);
     };
 }

@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.test_todo.databinding.ItemRecvHomeBinding
 import com.example.test_todo.model.User
 
-class HomeAdapter(private val userList: List<User>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var userList: List<User>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+    private val a : String? = null;
 
     inner class ViewHolder(var binding : ItemRecvHomeBinding) : RecyclerView.ViewHolder(
         binding.root
