@@ -10,8 +10,6 @@ import com.example.test_todo.model.User
 
 class HomeAdapter(var userList: List<User>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    private val a : String? = null;
-
     inner class ViewHolder(var binding : ItemRecvHomeBinding) : RecyclerView.ViewHolder(
         binding.root
     );

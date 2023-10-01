@@ -21,19 +21,15 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root);
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
-        adapter = HomeAdapter(ArrayList());
-
         binding.tvId.text = CommonVar.user_id;
         binding.tvName.text = CommonVar.user_nickname;
 
-        binding.recv.apply {
-            layoutManager = LinearLayoutManager(this@HomeActivity);
-            this.adapter = adapter;
-        };
-
         userViewModel.readAllData.observe(this, Observer { userList ->
+            adapter = HomeAdapter(ArrayList());
             adapter.userList = userList;
             adapter.notifyDataSetChanged();
+            binding.recv.adapter = adapter;
+            binding.recv.layoutManager = LinearLayoutManager(this);
         });
     };
 
