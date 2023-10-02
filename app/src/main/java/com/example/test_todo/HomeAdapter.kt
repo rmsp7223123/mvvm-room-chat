@@ -1,5 +1,7 @@
 package com.example.test_todo
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
@@ -8,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.test_todo.databinding.ItemRecvHomeBinding
 import com.example.test_todo.model.User
 
-class HomeAdapter(var userList: List<User>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var userList: List<User> , private var context : Context) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding : ItemRecvHomeBinding) : RecyclerView.ViewHolder(
         binding.root
@@ -26,6 +28,9 @@ class HomeAdapter(var userList: List<User>) : RecyclerView.Adapter<HomeAdapter.V
         val user = userList[position];
         holder.binding.tvId.text = user.user_id;
         holder.binding.tvName.text = user.user_nickname;
+        holder.binding.containerUser.setOnClickListener {
+            context.startActivity(Intent(context, ChatActivity::class.java));
+        };
     };
 
 

@@ -25,9 +25,7 @@ class HomeActivity : AppCompatActivity() {
         binding.tvName.text = CommonVar.user_nickname;
 
         userViewModel.readAllData.observe(this, Observer { userList ->
-            adapter = HomeAdapter(ArrayList());
-            adapter.userList = userList;
-            adapter.notifyDataSetChanged();
+            adapter = HomeAdapter(userList, this);
             binding.recv.adapter = adapter;
             binding.recv.layoutManager = LinearLayoutManager(this);
         });
