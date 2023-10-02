@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.test_todo.data.UserDatabase
 import com.example.test_todo.model.User
@@ -29,4 +30,10 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             repository.addUser(user);
         };
     };
+
+    fun getCurrentUser(currentUserId: String): LiveData<List<User>> {
+        return readAllData.map { userList ->
+            userList.filter { it.user_id != currentUserId };
+        };
+    }
 }

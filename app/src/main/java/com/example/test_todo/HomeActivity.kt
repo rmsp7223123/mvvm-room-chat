@@ -24,7 +24,9 @@ class HomeActivity : AppCompatActivity() {
         binding.tvId.text = CommonVar.user_id;
         binding.tvName.text = CommonVar.user_nickname;
 
-        userViewModel.readAllData.observe(this, Observer { userList ->
+        val currentUserId = CommonVar.user_id;
+
+        userViewModel.getCurrentUser(currentUserId!!).observe(this, Observer { userList ->
             adapter = HomeAdapter(userList, this);
             binding.recv.adapter = adapter;
             binding.recv.layoutManager = LinearLayoutManager(this);
