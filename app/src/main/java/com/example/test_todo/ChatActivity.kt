@@ -17,5 +17,6 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater);
         setContentView(binding.root);
+        binding.imgvBack.setOnClickListener { finish(); };
     };
 }

@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_todo.databinding.ItemRecvHomeBinding
 import com.example.test_todo.model.User
+import com.example.test_todo.viewmodel.ChatViewModel
 
-class HomeAdapter(var userList: List<User> , private var context : Context) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(var userList: List<User> ,private var context : Context, private var viewModel: ChatViewModel) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding : ItemRecvHomeBinding) : RecyclerView.ViewHolder(
         binding.root
@@ -29,7 +30,9 @@ class HomeAdapter(var userList: List<User> , private var context : Context) : Re
         holder.binding.tvId.text = user.user_id;
         holder.binding.tvName.text = user.user_nickname;
         holder.binding.containerUser.setOnClickListener {
-            context.startActivity(Intent(context, ChatActivity::class.java));
+            viewModel.setSelectedUsers(userList);
+            val intent = Intent(context, ChatActivity::class.java);
+            context.startActivity(intent);
         };
     };
 

@@ -17,7 +17,7 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     val readAllData : LiveData<List<User>>;
     private val repository : UserRepository;
     private val _userList = MutableLiveData<List<User>>();
-    val userList: LiveData<List<User>> get() = _userList;
+    // val userList: LiveData<List<User>> get() = _userList;
 
     init {
         val userDao = UserDatabase.getDatabase(application).userDao();

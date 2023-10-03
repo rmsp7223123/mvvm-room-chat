@@ -19,7 +19,9 @@ class ChatViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllData : LiveData<List<Chat>>;
     private val repository : ChatRepository;
-    private val _chatList = MutableLiveData<List<Chat>>();
+
+    private val _selectedUsers = MutableLiveData<List<User>>();
+    private val selectedUsers = mutableSetOf<User>();
 
     init {
         val chatDao = ChatDatabase.getDatabase(application).chatDao();
@@ -30,6 +32,18 @@ class ChatViewModel(application: Application): AndroidViewModel(application) {
     fun addChat(chat: Chat){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addChat(chat);
+        };
+    };
+
+    fun setSelectedUsers(users: List<User>) {
+        _selectedUsers.value = users;
+    };
+
+    fun toggleUserSelection(user: User) {
+        if (selectedUsers.contains(user)) {
+            selectedUsers.remove(user);
+        } else {
+            selectedUsers.add(user);
         };
     };
 
