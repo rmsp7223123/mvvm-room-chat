@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.test_todo.data.ChatDatabase
@@ -15,36 +16,21 @@ import com.example.test_todo.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChatViewModel(application: Application): AndroidViewModel(application) {
+class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
 
-    val readAllData : LiveData<List<Chat>>;
-    private val repository : ChatRepository;
+    val readAllData: LiveData<List<Chat>> = chatRepository.readAllData;
 
-    private val _selectedUsers = MutableLiveData<List<User>>();
-    private val selectedUsers = mutableSetOf<User>();
-
-    init {
-        val chatDao = ChatDatabase.getDatabase(application).chatDao();
-        repository = ChatRepository(chatDao);
-        readAllData = repository.readAllData;
-    };
-
-    fun addChat(chat: Chat){
+    fun addChat(chat: Chat) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addChat(chat);
+            chatRepository.addChat(chat)
         };
     };
 
-    fun setSelectedUsers(users: List<User>) {
-        _selectedUsers.value = users;
+    fun sendMessageToSelf(senderId: String, receiverId: String, message: String) {
+        chatRepository.sendMessageToSelf(senderId, receiverId, message);
     };
 
-    fun toggleUserSelection(user: User) {
-        if (selectedUsers.contains(user)) {
-            selectedUsers.remove(user);
-        } else {
-            selectedUsers.add(user);
-        };
+    fun sendMessageToReceiver(senderId: String, receiverId: String, message: String) {
+        chatRepository.sendMessageToReceiver(senderId, receiverId, message);
     };
-
 }
