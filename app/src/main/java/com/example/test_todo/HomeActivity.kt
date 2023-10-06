@@ -28,8 +28,7 @@ class HomeActivity : AppCompatActivity() {
         val currentUserId = CommonVar.user_id;
 
         userViewModel.getCurrentUser(currentUserId!!).observe(this, Observer { userList ->
-            val chatViewModel = ViewModelProvider(this)[ChatViewModel::class.java];
-            adapter = HomeAdapter(userList, this, chatViewModel);
+            adapter = HomeAdapter(userList, this);
             binding.recv.adapter = adapter;
             binding.recv.layoutManager = LinearLayoutManager(this);
         });

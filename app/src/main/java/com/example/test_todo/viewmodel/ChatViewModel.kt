@@ -16,21 +16,30 @@ import com.example.test_todo.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
+class ChatViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<Chat>> = chatRepository.readAllData;
+    val readAllData : LiveData<List<Chat>>;
+    private val repository : ChatRepository;
+
+    init {
+        val chatDao = ChatDatabase.getDatabase(application).chatDao();
+        repository = ChatRepository(chatDao);
+        readAllData = repository.readAllData;
+    };
 
     fun addChat(chat: Chat) {
         viewModelScope.launch(Dispatchers.IO) {
-            chatRepository.addChat(chat)
+            repository.addChat(chat)
         };
     };
 
-    fun sendMessageToSelf(senderId: String, receiverId: String, message: String) {
-        chatRepository.sendMessageToSelf(senderId, receiverId, message);
+    fun sendMessage(senderId: String, receiverId: String, message: String) {
+        repository.sendMessage(senderId, receiverId, message);
     };
 
-    fun sendMessageToReceiver(senderId: String, receiverId: String, message: String) {
-        chatRepository.sendMessageToReceiver(senderId, receiverId, message);
-    };
+    fun getCurrentChat(currentUserId: String): LiveData<List<Chat>> {
+        return readAllData.map { chatList ->
+            chatList.filter { it.senderId != currentUserId };
+        };
+    }
 }

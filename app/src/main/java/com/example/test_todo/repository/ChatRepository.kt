@@ -10,14 +10,14 @@ class ChatRepository(private val chatDao : ChatDao) {
 
     val readAllData: LiveData<List<Chat>> = chatDao.readAllData();
 
-    private val databaseReference = FirebaseDatabase.getInstance().reference;
+    private val databaseReference = FirebaseDatabase.getInstance().reference.child("chats");
 
     suspend fun addChat(chat: Chat){
         chatDao.addChat(chat);
     };
 
-    fun sendMessageToSelf(senderId: String, receiverId: String, message: String) {
-        val chatId = databaseReference.child("chats").push().key!!;
+    fun sendMessage(senderId: String, receiverId: String, message: String) {
+        val chatId = databaseReference.push().key ?: return;
         val timestamp = System.currentTimeMillis();
 
         val chatData = mapOf(
@@ -26,21 +26,6 @@ class ChatRepository(private val chatDao : ChatDao) {
             "message" to message,
             "timestamp" to timestamp
         );
-
-        databaseReference.child("chats").child(chatId).setValue(chatData);
-    };
-
-    fun sendMessageToReceiver(senderId: String, receiverId: String, message: String) {
-        val chatId = databaseReference.child("chats").push().key!!;
-        val timestamp = System.currentTimeMillis();
-
-        val chatData = mapOf(
-            "senderId" to senderId,
-            "receiverId" to receiverId,
-            "message" to message,
-            "timestamp" to timestamp
-        );
-
-        databaseReference.child("chats").child(chatId).setValue(chatData);
+        databaseReference.child(chatId).setValue(chatData);
     };
 }
