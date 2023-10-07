@@ -14,15 +14,17 @@ import com.example.test_todo.model.Chat
 import com.example.test_todo.model.User
 import com.example.test_todo.repository.ChatRepository
 import com.example.test_todo.viewmodel.ChatViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChatBinding;
 
-    private val firebaseDatabase = FirebaseDatabase.getInstance();
-
-    private val databaseReference = firebaseDatabase.reference;
+    private val databaseReference = FirebaseDatabase.getInstance().reference;
+    val chatReference = databaseReference.child("chats");
 
     private lateinit var chatViewModel: ChatViewModel;
 
@@ -64,5 +66,22 @@ class ChatActivity : AppCompatActivity() {
                 binding.edtMessage.setText("");
             };
         };
+
+        chatReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val chatList = mutableListOf<Chat>();
+                for (dataSnapshot in snapshot.children) {
+                    val chat = dataSnapshot.getValue(Chat::class.java);
+                    chat?.let {
+                        chatList.add(it);
+                    };
+                };
+                val adapter = ChatAdapter(chatList, applicationContext);
+                binding.recvMessageChat.adapter = adapter;
+            };
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     };
 }
