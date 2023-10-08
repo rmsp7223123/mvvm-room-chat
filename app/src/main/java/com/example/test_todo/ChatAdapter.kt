@@ -8,7 +8,7 @@ import com.example.test_todo.databinding.ItemRecvHomeBinding
 import com.example.test_todo.databinding.ItemRecvMessageBinding
 import com.example.test_todo.model.Chat
 
-class ChatAdapter(var chatList : List<Chat>, var context : Context) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+class ChatAdapter(var chatList : List<Chat>) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemRecvMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false));
@@ -19,8 +19,10 @@ class ChatAdapter(var chatList : List<Chat>, var context : Context) : RecyclerVi
     };
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val chat = chatList[position];
-        holder.binding.tvName.text = chat.receiverNickname;
+        if (chatList.isNotEmpty() && position < chatList.size) {
+            val chat = chatList[position];
+            holder.binding.tvName.text = chat.receiverNickname;
+        }
     };
 
     inner class ViewHolder(var binding : ItemRecvMessageBinding) : RecyclerView.ViewHolder(
