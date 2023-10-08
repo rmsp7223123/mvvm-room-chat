@@ -33,8 +33,8 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
         };
     };
 
-    fun sendMessage(senderId: String, receiverId: String, message: String) {
-        repository.sendMessage(senderId, receiverId, message);
+    fun sendMessage(senderId: String, receiverId: String, message: String, senderNickname : String, receiverNickname : String) {
+        repository.sendMessage(senderId, receiverId, message, senderNickname, receiverNickname);
     };
 
     fun getCurrentChat(currentUserId: String): LiveData<List<Chat>> {

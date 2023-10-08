@@ -64,7 +64,7 @@ class ChatActivity : AppCompatActivity() {
                     time = System.currentTimeMillis()
                 );
                 chatViewModel.addChat(chat);
-                chatViewModel.sendMessage(CommonVar.user_id!!, opponentUserId, message);
+                chatViewModel.sendMessage(CommonVar.user_id!!, opponentUserId, message, CommonVar.user_nickname!!, opponentUserNickname);
                 adapter.notifyDataSetChanged();
                 binding.edtMessage.setText("");
             };

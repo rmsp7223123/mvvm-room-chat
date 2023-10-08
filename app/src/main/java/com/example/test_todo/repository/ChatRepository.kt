@@ -1,5 +1,6 @@
 package com.example.test_todo.repository
 
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import androidx.lifecycle.LiveData
 import com.example.test_todo.data.ChatDao
 import com.example.test_todo.model.Chat
@@ -16,13 +17,15 @@ class ChatRepository(private val chatDao : ChatDao) {
         chatDao.addChat(chat);
     };
 
-    fun sendMessage(senderId: String, receiverId: String, message: String) {
+    fun sendMessage(senderId: String, receiverId: String, message: String, senderNickname : String, receiverNickname: String) {
         val chatId = databaseReference.push().key ?: return;
         val timestamp = System.currentTimeMillis();
 
         val chatData = mapOf(
             "senderId" to senderId,
             "receiverId" to receiverId,
+            "senderNickname" to senderNickname,
+            "receiverNickname" to receiverNickname,
             "message" to message,
             "timestamp" to timestamp
         );
