@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_todo.databinding.ItemRecvHomeBinding
 import com.example.test_todo.databinding.ItemRecvMessageBinding
+import com.example.test_todo.dto.ChatVO
 import com.example.test_todo.model.Chat
 
-class ChatAdapter(var internalChatList : List<Chat>) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+class ChatAdapter(private var internalChatList : List<ChatVO>) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemRecvMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false));
