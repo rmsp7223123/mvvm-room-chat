@@ -37,9 +37,9 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
         repository.sendMessage(senderId, receiverId, message, senderNickname, receiverNickname);
     };
 
-    fun getCurrentChat(currentUserId: String): LiveData<List<Chat>> {
+    fun getCurrentChat(userId: String, opponentId : String): LiveData<List<Chat>> {
         return readAllData.map { chatList ->
-            chatList.filter { it.senderId != currentUserId };
-        };
+            chatList.filter { it.senderId == userId && it.receiverId == opponentId }
+        }
     }
 }

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test_todo.common.CommonVar
 import com.example.test_todo.data.ChatDatabase
 import com.example.test_todo.databinding.ActivityChatBinding
-import com.example.test_todo.dto.ChatVO
 import com.example.test_todo.model.Chat
 import com.example.test_todo.model.User
 import com.example.test_todo.repository.ChatRepository
@@ -32,8 +31,6 @@ class ChatActivity : AppCompatActivity() {
 
     private lateinit var adapter : ChatAdapter;
 
-    private lateinit var chatList2 : List<ChatVO>;
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,18 +42,8 @@ class ChatActivity : AppCompatActivity() {
         val opponentUserId = selectedUsers!![0].user_id;
         val opponentUserNickname = selectedUsers!![0].user_nickname;
         chatViewModel = ViewModelProvider(this)[ChatViewModel::class.java];
-        chatViewModel.getCurrentChat(CommonVar.user_id!!).observe(this, Observer {chatList ->
-            chatList2 = chatList.map { chat ->
-                ChatVO(
-                    senderId = chat.senderId,
-                    senderNickname = chat.senderNickname,
-                    receiverId = chat.receiverId,
-                    receiverNickname = chat.receiverNickname,
-                    message = chat.message,
-                    time = chat.time
-                );
-            };
-            adapter = ChatAdapter(chatList2);
+        chatViewModel.getCurrentChat(CommonVar.user_id!!, opponentUserId).observe(this, Observer {chatList ->
+            adapter = ChatAdapter(chatList);
            binding.recvMessageChat.adapter = adapter;
            binding.recvMessageChat.layoutManager = LinearLayoutManager(this);
         });
