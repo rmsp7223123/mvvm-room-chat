@@ -39,7 +39,7 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getCurrentChat(userId: String, opponentId : String): LiveData<List<Chat>> {
         return readAllData.map { chatList ->
-            chatList.filter { it.senderId == userId && it.receiverId == opponentId }
+            chatList.filter { it.senderId == userId && it.receiverId == opponentId || it.senderId == opponentId && it.receiverId == userId}
         }
     }
 }

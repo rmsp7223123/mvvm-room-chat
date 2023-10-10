@@ -43,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
         val opponentUserNickname = selectedUsers!![0].user_nickname;
         chatViewModel = ViewModelProvider(this)[ChatViewModel::class.java];
         chatViewModel.getCurrentChat(CommonVar.user_id!!, opponentUserId).observe(this, Observer {chatList ->
-            adapter = ChatAdapter(chatList);
+            adapter = ChatAdapter(chatList, this);
            binding.recvMessageChat.adapter = adapter;
            binding.recvMessageChat.layoutManager = LinearLayoutManager(this);
         });
